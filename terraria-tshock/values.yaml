@@ -1,0 +1,119 @@
+# Default values for terraria-tshock.
+#
+# The SDK module at @haruspex/kubernetes/services/terraria-tshock is the
+# expected consumer; it computes most of these from operator-facing modifiers.
+# Editing this file directly is fine for one-off helm-only deploys.
+
+# Container image. No default — operators MUST set the image they want to run.
+# Pin by digest in production:
+#   image:
+#     repository: ghcr.io/kubedoll-heavy-industries/terraria-tshock
+#     tag: "6.1.0@sha256:..."
+image:
+  repository: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# Replica count. TShock is single-process / single-world; >1 replica makes no
+# sense for the same PVC. Surfaced as a value purely so operators can scale to
+# 0 for maintenance.
+replicaCount: 1
+
+# Resource requests + limits for the main container. The init container reuses
+# these (cheap, only runs once per pod start).
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: "2"
+    memory: 4Gi
+
+# Persistent volume for world data, TShock sqlite + plugin state, and logs.
+persistence:
+  size: 4Gi
+  storageClassName: ""    # empty → cluster default
+  accessMode: ReadWriteOnce
+
+# Server CLI args. Used to build `command + args` for the main container.
+# `worldName` MUST be set for the server to bypass Terraria's interactive
+# "n=New, d=Delete" prompt at first boot.
+server:
+  worldName: ""           # required; used for both -world abs path + -worldname
+  worldSize: "2"          # "1" small, "2" medium, "3" large
+  maxPlayers: 16
+  password: ""            # if set, -pass
+  difficulty: ""          # "0" normal, "1" expert, "2" master, "3" journey
+  language: ""            # e.g. en-US; passes -lang
+  secure: false           # if true, -secure (base game antispam)
+  gameParams: []          # operator escape hatch; flat string array of extra args
+
+# TShock config.json management. If `enabled: true`, the chart spins up an
+# init container that copies `tshockConfigJson` from a ConfigMap into the PVC
+# at /serverdata/serverfiles/tshock/config.json BEFORE the main container
+# starts. This overwrites any operator-side edits to that file on every boot —
+# declarative config wins.
+tshockConfig:
+  enabled: false
+  # JSON-stringified config.json contents. The SDK renders this from operator
+  # config + a pinned TShock defaults file; for raw helm use, pass the file
+  # contents via `--set-file tshockConfigJson=./config.json`.
+  json: "{}"
+
+# Service. Single LoadBalancer with the Cilium LBIPAM sharing-key + ips
+# annotations needed for IP-sharing across multiple game servers.
+service:
+  type: LoadBalancer
+  port: 7777
+  loadBalancerIP: ""      # if set, lbipam.cilium.io/ips annotation
+  sharingKey: ""          # if set, lbipam.cilium.io/sharing-key annotation
+  annotations: {}         # additional annotations merged in
+
+# Container/pod security context. Defaults to the hardened shape the image
+# expects: uid 1000 / gid 1000, non-root, dropped caps, seccomp RuntimeDefault.
+# Override only with reason (e.g. debugging a privilege issue in a temporary
+# cluster).
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
+
+containerSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+# Image used by the config-seed init container. Tiny busybox; pinned by digest
+# so the init container's surface is reproducible. Only consulted when
+# tshockConfig.enabled is true.
+configSeedImage:
+  repository: busybox
+  tag: "1.36@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662"
+  pullPolicy: IfNotPresent
+
+# Node placement.
+nodeSelector:
+  kubernetes.io/arch: amd64
+tolerations: []
+affinity: {}
+
+# Pod-level extras (most operators won't touch these).
+priorityClassName: ""
+terminationGracePeriodSeconds: 60
+
+# Optional label/annotation extensions on every resource.
+extraLabels: {}
+extraAnnotations: {}
+
+# Override the auto-generated names (rarely needed).
+nameOverride: ""
+fullnameOverride: ""

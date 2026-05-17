@@ -1,0 +1,25 @@
+apiVersion: v2
+name: terraria-tshock
+description: |
+  Minimal opinionated Helm chart for TShock (Terraria server mod) on Kubernetes.
+  Pairs with the hardened image at
+  ghcr.io/kubedoll-heavy-industries/terraria-tshock. Replaces the truecharts
+  terraria-tshock chart with a single-purpose chart that doesn't need
+  ich777-image wrapper scripts, doesn't emit chowner init containers, runs the
+  workload as uid 1000 from PID 1, and exposes only the surface Terraria
+  actually needs.
+type: application
+icon: https://terraria.org/favicon.ico
+home: https://github.com/Kubedoll-Heavy-Industries/charts
+sources:
+  - https://github.com/kubedoll-heavy-industries/terraria-tshock
+  - https://github.com/Pryaxis/TShock
+  - https://github.com/Kubedoll-Heavy-Industries/charts
+maintainers:
+  - name: Kubedoll Heavy Industries
+keywords:
+  - terraria
+  - tshock
+  - game-server
+version: 0.1.0
+appVersion: "6.1.0"

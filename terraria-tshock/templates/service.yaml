@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "terraria-tshock.fullname" . }}
+  labels:
+    {{- include "terraria-tshock.labels" . | nindent 4 }}
+  annotations:
+    {{- with .Values.service.loadBalancerIP }}
+    lbipam.cilium.io/ips: {{ . | quote }}
+    {{- end }}
+    {{- with .Values.service.sharingKey }}
+    lbipam.cilium.io/sharing-key: {{ . | quote }}
+    {{- end }}
+    {{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.extraAnnotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: terraria
+      port: {{ .Values.service.port }}
+      targetPort: terraria
+      protocol: TCP
+  selector:
+    {{- include "terraria-tshock.selectorLabels" . | nindent 4 }}

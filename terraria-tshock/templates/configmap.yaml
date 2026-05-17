@@ -1,0 +1,18 @@
+{{- if .Values.tshockConfig.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "terraria-tshock.fullname" . }}-config
+  labels:
+    {{- include "terraria-tshock.labels" . | nindent 4 }}
+  {{- with .Values.extraAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  # The full TShock config.json. The SDK renders this from a curated operator
+  # schema + a pinned defaults file (see @haruspex/kubernetes config-merge.ts);
+  # raw helm consumers can pass the file via `--set-file tshockConfig.json=...`.
+  config.json: |
+    {{- .Values.tshockConfig.json | nindent 4 }}
+{{- end }}

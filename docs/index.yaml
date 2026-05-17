@@ -3,7 +3,7 @@ entries:
   huly:
   - apiVersion: v2
     appVersion: v0.7.242
-    created: "2026-04-03T22:44:01.455268-03:00"
+    created: "2026-05-17T15:30:52.513701-03:00"
     description: Helm chart for Huly, an open-source project management platform
     digest: 1885facaed28f25114f1bb3fe7640c831d4a38d381ca360a6ea39e72ec8c785d
     home: https://huly.io
@@ -243,7 +243,7 @@ entries:
         url: https://helm.penpot.app/pubkey.asc
     apiVersion: v2
     appVersion: 2.14.1
-    created: "2026-04-03T22:44:01.480446-03:00"
+    created: "2026-05-17T15:30:52.536175-03:00"
     dependencies:
     - condition: global.postgresqlEnabled
       name: postgresql
@@ -287,7 +287,7 @@ entries:
       artifacthub.io/license: AGPL-3.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-04-03T22:44:01.48158-03:00"
+    created: "2026-05-17T15:30:52.537363-03:00"
     description: Meet Plane. An open-source software development tool to manage issues,
       sprints, and product roadmaps with peace of mind.
     digest: 3bfe3c9e5543bea35c85d27684ca7c5b60928afebc74ef21bea1c2c546b4e10c
@@ -301,4 +301,32 @@ entries:
     urls:
     - https://kubedoll-heavy-industries.github.io/charts/plane-ce-1.4.2.tgz
     version: 1.4.2
-generated: "2026-04-03T22:44:01.454287-03:00"
+  terraria-tshock:
+  - apiVersion: v2
+    appVersion: 6.1.0
+    created: "2026-05-17T15:30:52.537701-03:00"
+    description: 'Minimal opinionated Helm chart for TShock (Terraria server mod)
+      on Kubernetes. Pairs with the hardened image at ghcr.io/kubedoll-heavy-industries/terraria-tshock.
+      Replaces the truecharts terraria-tshock chart with a single-purpose chart that
+      doesn''t need ich777-image wrapper scripts, doesn''t emit chowner init containers,
+      runs the workload as uid 1000 from PID 1, and exposes only the surface Terraria
+      actually needs. '
+    digest: 181599c9c9202c607d5b53af1540712b80810c18ca6dc86058ccd14be2e2fbf3
+    home: https://github.com/Kubedoll-Heavy-Industries/charts
+    icon: https://terraria.org/favicon.ico
+    keywords:
+    - terraria
+    - tshock
+    - game-server
+    maintainers:
+    - name: Kubedoll Heavy Industries
+    name: terraria-tshock
+    sources:
+    - https://github.com/kubedoll-heavy-industries/terraria-tshock
+    - https://github.com/Pryaxis/TShock
+    - https://github.com/Kubedoll-Heavy-Industries/charts
+    type: application
+    urls:
+    - https://kubedoll-heavy-industries.github.io/charts/terraria-tshock-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-05-17T15:30:52.512418-03:00"

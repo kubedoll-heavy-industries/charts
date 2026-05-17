@@ -1,0 +1,162 @@
+{{- if not .Values.image.repository -}}
+{{- fail "terraria-tshock: .Values.image.repository is required" -}}
+{{- end -}}
+{{- if not .Values.image.tag -}}
+{{- fail "terraria-tshock: .Values.image.tag is required (pin by digest in production: '6.1.0@sha256:...')" -}}
+{{- end -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "terraria-tshock.fullname" . }}
+  labels:
+    {{- include "terraria-tshock.labels" . | nindent 4 }}
+  {{- with .Values.extraAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ include "terraria-tshock.fullname" . }}
+  replicas: {{ .Values.replicaCount }}
+  # TShock is single-process; pod deletion before replacement is the safer
+  # default than the StatefulSet OrderedReady strategy (single-replica anyway).
+  podManagementPolicy: Parallel
+  updateStrategy:
+    # Recreate (delete then create) for single-replica game servers — TShock
+    # doesn't support graceful handoff between two pods sharing the same world.
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
+  selector:
+    matchLabels:
+      {{- include "terraria-tshock.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "terraria-tshock.selectorLabels" . | nindent 8 }}
+        {{- with .Values.extraLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.extraAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.priorityClassName }}
+      priorityClassName: {{ . }}
+      {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      automountServiceAccountToken: false
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.tshockConfig.enabled }}
+      initContainers:
+        # Copy the chart-rendered config.json from the ConfigMap into the PVC
+        # before TShock starts. Re-runs on every pod start; this overwrites
+        # any operator-side PVC edits to config.json, which is the trade we
+        # accept for declarative-config-on-every-deploy. busybox is the only
+        # shell-having image in the pod — main container is shell-less.
+        - name: tshock-config-seed
+          image: "{{ .Values.configSeedImage.repository }}:{{ .Values.configSeedImage.tag }}"
+          imagePullPolicy: {{ .Values.configSeedImage.pullPolicy }}
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              mkdir -p /serverdata/serverfiles/tshock
+              cp /tshock-config-in/config.json /serverdata/serverfiles/tshock/config.json
+              chmod 0644 /serverdata/serverfiles/tshock/config.json
+          # Inherits podSecurityContext so still runs as uid 1000 / drop ALL.
+          # If config-seed ever needs root for a chown, override here, not at
+          # pod level — keep the main container hardened.
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          volumeMounts:
+            - name: serverfiles
+              mountPath: /serverdata/serverfiles
+            - name: tshock-config-in
+              mountPath: /tshock-config-in
+              readOnly: true
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- end }}
+      containers:
+        - name: terraria-tshock
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          # Override the image's tini-wrapped ENTRYPOINT/CMD. K8s preStop +
+          # terminationGracePeriodSeconds cover the SIGTERM-handling tini gave
+          # us. Apphost is invoked directly — single PID, no zombie reaping
+          # concerns for a long-lived single-process server.
+          command:
+            - /opt/tshock/TShock.Server
+          args:
+            {{- include "terraria-tshock.args" . | nindent 12 }}
+          ports:
+            - name: terraria
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          # TCP probes on the game port. HTTP probes were the chart-fight that
+          # birthed this chart — the upstream truecharts chart probed /:8080
+          # which only existed in ich777's image. We expose 7777 only.
+          livenessProbe:
+            tcpSocket:
+              port: terraria
+            periodSeconds: 30
+            failureThreshold: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: terraria
+            periodSeconds: 10
+            failureThreshold: 4
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: terraria
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 60     # up to 5 min for cold-boot world generation
+            timeoutSeconds: 3
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          volumeMounts:
+            - name: serverfiles
+              mountPath: /serverdata/serverfiles
+            # /tmp tmpfs is required by DOTNET_BUNDLE_EXTRACT_BASE_DIR — the
+            # TShock apphost (PublishSingleFile=true) extracts native libs at
+            # boot and needs a writable scratch dir. Read-only rootfs forces
+            # this to be an explicit volume.
+            - name: tmp
+              mountPath: /tmp
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: serverfiles
+          persistentVolumeClaim:
+            claimName: {{ include "terraria-tshock.fullname" . }}-serverfiles
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 256Mi
+        {{- if .Values.tshockConfig.enabled }}
+        - name: tshock-config-in
+          configMap:
+            name: {{ include "terraria-tshock.fullname" . }}-config
+            defaultMode: 0444
+            items:
+              - key: config.json
+                path: config.json
+        {{- end }}
