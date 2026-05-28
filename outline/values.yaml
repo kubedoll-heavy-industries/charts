@@ -755,6 +755,15 @@ database:
   connectionPoolMax: "20"
   # -- The SSL mode to use for the database connection. possible values are: "disable", "allow", "require", "prefer", "verify-ca", "verify-full"
   sslMode: disable
+  # -- Direct DATABASE_URL override. When set, bypasses the chart's discrete
+  # PGUSER/PGPASSWORD/PGHOST/PGPORT/PGDATABASE assembly and sources the
+  # connection string from the referenced Secret. Required when you want to
+  # use cert-based auth (Outline reads sslcert/sslkey from query params on
+  # the URL) or point at a local pgbouncer.
+  #   url:
+  #     secretName: outline-database-url
+  #     secretKey: DATABASE_URL   # defaults to DATABASE_URL
+  url: {}
 
 # -- Bitnami PostgreSQL configuration
 postgresql:

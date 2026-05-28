@@ -132,6 +132,21 @@ spec:
               value: {{ .Values.logging.extraDebug | join "," | quote }}
             {{- end }}
 
+            {{- if .Values.database.url }}
+            # Direct DATABASE_URL override — bypasses the chart's PGUSER/PGPASSWORD
+            # assembly. Set when you need to specify the full connection string
+            # yourself (e.g. cert-auth via `sslcert=`/`sslkey=` query params, or
+            # to point at a pgbouncer sidecar on 127.0.0.1).
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.url.secretName }}
+                  key:  {{ .Values.database.url.secretKey | default "DATABASE_URL" }}
+            - name: DATABASE_CONNECTION_POOL_MIN
+              value: {{ .Values.database.connectionPoolMin | quote }}
+            - name: DATABASE_CONNECTION_POOL_MAX
+              value: {{ .Values.database.connectionPoolMax | quote }}
+            {{- else }}
             - name: PGUSER
               value: {{ include "outline.postgresql.username" . }}
             - name: PGPASSWORD
@@ -159,6 +174,7 @@ spec:
 
             - name: DATABASE_URL
               value: "postgres://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+            {{- end }}
 
             - name: REDIS_USERNAME
             {{- if and .Values.redis.enabled (not .Values.externalRedis.existingSecret) }}
