@@ -3,7 +3,7 @@ entries:
   huly:
   - apiVersion: v2
     appVersion: v0.7.242
-    created: "2026-05-28T18:57:58.04008-03:00"
+    created: "2026-05-29T00:18:20.75537-03:00"
     description: Helm chart for Huly, an open-source project management platform
     digest: 1885facaed28f25114f1bb3fe7640c831d4a38d381ca360a6ea39e72ec8c785d
     home: https://huly.io
@@ -21,206 +21,47 @@ entries:
     urls:
     - https://kubedoll-heavy-industries.github.io/charts/huly-0.2.0.tgz
     version: 0.2.0
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T21:40:13.875762-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: be8c47458b7aa583d880da94ae3a0c8c1c11177359a6bcee4a79184bb264513a
-    home: https://huly.io
+  jellyfin:
+  - annotations:
+      artifacthub.io/links: |-
+        - name: support
+        url: https://discord.com/invite/tVsPTHWTtr
+      truecharts.org/train: stable
+      trueforge.org/category: media
+      trueforge.org/max_helm_version: "4.1"
+      trueforge.org/max_kubernetes_version: 1.35.0
+      trueforge.org/min_helm_version: "3.14"
+      trueforge.org/train: stable
+    apiVersion: v2
+    appVersion: 10.11.8
+    created: "2026-05-29T00:18:20.759318-03:00"
+    dependencies:
+    - name: common
+      repository: oci://oci.trueforge.org/truecharts
+      version: 29.3.4
+    description: Jellyfin is a Free Software Media System
+    digest: b623bd2cd639707a4011df09251622ba1cd12d61c4ed6ad63c1b94a3f225d538
+    home: https://truecharts.org/charts/stable/jellyfin
+    icon: https://truecharts.org/img/hotlink-ok/chart-icons/jellyfin.webp
     keywords:
-    - huly
-    - project-management
-    - collaboration
+    - jellyfin
+    - plex
+    - emby
+    kubeVersion: '>=1.33.0-0'
     maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
+    - email: info@truecharts.org
+      name: TrueCharts
+      url: https://truecharts.org
+    name: jellyfin
     sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
+    - https://github.com/jellyfin/jellyfin
+    - https://github.com/trueforge-org/containers/tree/main/apps/jellyfin
+    - https://github.com/trueforge-org/truecharts/tree/master/charts/stable/jellyfin
+    - https://hub.docker.com/r/alpine/socat
     type: application
     urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.9.tgz
-    version: 0.1.9
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T20:21:49.324345-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: f9dc054b0811eb6e06d35aad6686fe15e5416a18b7481812d8512a9994421d1a
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.8.tgz
-    version: 0.1.8
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T19:44:41.087554-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: 0f71ac7be64be619b8622f8604c23347eb87f444ebb4b51a6cdc687b862f1f77
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.7.tgz
-    version: 0.1.7
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T19:39:19.357512-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: 6f17a5a2a08e7ffdf38e13e49909fc74f65684d1775521d0d43a8749125914a1
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.6.tgz
-    version: 0.1.6
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T19:25:30.766675-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: 5a453dfe4bff6893281f9c1c38a49c75700740da1b7052d367ec61f7c5d90c2c
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.5.tgz
-    version: 0.1.5
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T19:10:12.353292-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: 9c239cd4d826ebcc8911b3de6f3430b03010164de4f18a89fb8e6e406a5a97f4
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v2
-    appVersion: v0.7.242
-    created: "2026-04-03T18:59:57.474653-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: da66fd801a079712a81fba1f7bd28a886a61c7662139c6532781886e96f71fd8
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v2
-    appVersion: v0.6.502
-    created: "2026-04-03T18:51:59.810889-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: f82965c5857a85658f1a15d5ac3bd3d16fe623d2a0331efdafc0ba0e2d03f4f0
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v2
-    appVersion: v0.6.6
-    created: "2026-04-03T18:35:36.900956-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: 70fd1650295c52bd3d21f7c556ccfd252b35c5adde060bc19a38a32731bf2a61
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v2
-    appVersion: v0.7.406
-    created: "2026-04-03T18:05:16.555434-03:00"
-    description: Helm chart for Huly, an open-source project management platform
-    digest: 55176c7228f8d121becace89cf772742972aa826f452b92932a0da86c5efc08a
-    home: https://huly.io
-    keywords:
-    - huly
-    - project-management
-    - collaboration
-    maintainers:
-    - name: Kubedoll Heavy Industries
-    name: huly
-    sources:
-    - https://github.com/hcengineering/huly-platform
-    - https://github.com/Kubedoll-Heavy-Industries/charts
-    type: application
-    urls:
-    - https://kubedoll-heavy-industries.github.io/charts/huly-0.1.0.tgz
-    version: 0.1.0
+    - https://kubedoll-heavy-industries.github.io/charts/jellyfin-23.3.2-kdhi.1.tgz
+    version: 23.3.2-kdhi.1
   outline:
   - annotations:
       artifacthub.io/changes: |-
@@ -264,7 +105,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-05-28T18:57:58.049736-03:00"
+    created: "2026-05-29T00:18:20.768571-03:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: ea5a200f4ac81b23bd5795a8982a21d8dd5f64d09e9e2931fc19ba2b9963885f
@@ -333,7 +174,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-05-28T18:57:58.048293-03:00"
+    created: "2026-05-29T00:18:20.767318-03:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: 311350ae90e4ac7da63a5fe1fd73769294fb6b3b18f2201448f3f46619c1747a
@@ -402,7 +243,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-05-28T18:57:58.046263-03:00"
+    created: "2026-05-29T00:18:20.765471-03:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: 15f1ed971ce7f313d4419c5cfbbb094b32fe5642cef4a66158575d01263fea4d
@@ -471,7 +312,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-05-28T18:57:58.044467-03:00"
+    created: "2026-05-29T00:18:20.763092-03:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: 5e76e7a85e0bb8d2c54e9f3eb7b19b445167bcf9a52b94c8a498bc090e7744a6
@@ -540,7 +381,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-05-28T18:57:58.042615-03:00"
+    created: "2026-05-29T00:18:20.761398-03:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: f714433fe6ae060e4839a3ce7f9820c32b7770453611b5b666454f77342a7f40
@@ -589,7 +430,7 @@ entries:
         url: https://helm.penpot.app/pubkey.asc
     apiVersion: v2
     appVersion: 2.14.1
-    created: "2026-05-28T18:57:58.07-03:00"
+    created: "2026-05-29T00:18:20.786719-03:00"
     dependencies:
     - condition: global.postgresqlEnabled
       name: postgresql
@@ -633,7 +474,7 @@ entries:
       artifacthub.io/license: AGPL-3.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-05-28T18:57:58.071396-03:00"
+    created: "2026-05-29T00:18:20.787724-03:00"
     description: Meet Plane. An open-source software development tool to manage issues,
       sprints, and product roadmaps with peace of mind.
     digest: 3bfe3c9e5543bea35c85d27684ca7c5b60928afebc74ef21bea1c2c546b4e10c
@@ -650,7 +491,7 @@ entries:
   terraria-tshock:
   - apiVersion: v2
     appVersion: 6.1.0
-    created: "2026-05-28T18:57:58.071855-03:00"
+    created: "2026-05-29T00:18:20.788189-03:00"
     description: 'Minimal opinionated Helm chart for TShock (Terraria server mod)
       on Kubernetes. Pairs with the hardened image at ghcr.io/kubedoll-heavy-industries/terraria-tshock.
       Replaces the truecharts terraria-tshock chart with a single-purpose chart that
@@ -675,4 +516,4 @@ entries:
     urls:
     - https://kubedoll-heavy-industries.github.io/charts/terraria-tshock-0.1.0.tgz
     version: 0.1.0
-generated: "2026-05-28T18:57:58.039098-03:00"
+generated: "2026-05-29T00:18:20.753942-03:00"

@@ -1,0 +1,40 @@
+annotations:
+  artifacthub.io/links: |-
+    - name: support
+    url: https://discord.com/invite/tVsPTHWTtr
+  truecharts.org/train: stable
+  trueforge.org/category: media
+  trueforge.org/max_helm_version: "4.1"
+  trueforge.org/max_kubernetes_version: 1.35.0
+  trueforge.org/min_helm_version: "3.14"
+  trueforge.org/train: stable
+apiVersion: v2
+appVersion: 10.11.8
+dependencies:
+- name: common
+  repository: oci://oci.trueforge.org/truecharts
+  version: 29.3.4
+description: Jellyfin is a Free Software Media System
+home: https://truecharts.org/charts/stable/jellyfin
+icon: https://truecharts.org/img/hotlink-ok/chart-icons/jellyfin.webp
+keywords:
+- jellyfin
+- plex
+- emby
+kubeVersion: '>=1.33.0-0'
+maintainers:
+- email: info@truecharts.org
+  name: TrueCharts
+  url: https://truecharts.org
+name: jellyfin
+sources:
+- https://github.com/jellyfin/jellyfin
+- https://github.com/trueforge-org/containers/tree/main/apps/jellyfin
+- https://github.com/trueforge-org/truecharts/tree/master/charts/stable/jellyfin
+- https://hub.docker.com/r/alpine/socat
+type: application
+version: 23.3.2-kdhi.1
+# kdhi.1: vendored from TrueForge 23.3.2 + bjw-s common chart patched to
+# support `persistence.<name>.type=image` (Kubernetes 1.31+ volumes.image).
+# Used for the in-house jellyfin-plugin-oidc plugin install — see
+# Kubedoll-Heavy-Industries/jellyfin-plugin-oidc for the plugin source.
