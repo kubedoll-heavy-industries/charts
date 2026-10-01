@@ -1,0 +1,11 @@
+apiVersion: v2
+name: twenty
+description: A Helm chart to deploy Twenty CRM (server + worker) with optional PostgreSQL and Redis dependencies.
+type: application
+# Vendored from twentyhq/twenty tag v2.9.0 (packages/twenty-docker/helm/twenty).
+# Upstream pins appVersion to an old v1.14.0 (issue twentyhq/twenty#22544) and
+# drifts the chart version per release; here version/appVersion track the
+# upstream product tag so the default image tag matches the release.
+version: 2.9.0
+appVersion: "v2.9.0"
+icon: https://raw.githubusercontent.com/twentyhq/twenty/2f25922f4cd5bd61e1427c57c4f8ea224e1d552c/packages/twenty-website/public/images/core/logo.svg
