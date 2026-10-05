@@ -125,8 +125,7 @@ false
 {{- $host := (index .Values.server.ingress.hosts 0).host -}}
 {{- $tls := gt (len .Values.server.ingress.tls) 0 -}}
 {{- $scheme := ternary "https" "http" $tls -}}
-{{- $port := ternary 443 80 $tls -}}
-{{- printf "%s://%s:%v" $scheme $host $port -}}
+{{- printf "%s://%s" $scheme $host -}}
 {{- else -}}
 {{- $svc := printf "%s-server" (include "twenty.fullname" .) -}}
 {{- $ns := include "twenty.namespace" . -}}
