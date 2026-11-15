@@ -69,6 +69,10 @@ service:
   sharingKey: ""          # if set, lbipam.cilium.io/sharing-key annotation
   annotations: {}         # additional annotations merged in
 
+# RuntimeClass for the pod. Empty uses the cluster default (runc). Set to
+# "kata" for the VM-isolated sandbox lane.
+runtimeClassName: ""
+
 # Container/pod security context. Defaults to the hardened shape the image
 # expects: uid 1000 / gid 1000, non-root, dropped caps, seccomp RuntimeDefault.
 # Override only with reason (e.g. debugging a privilege issue in a temporary
