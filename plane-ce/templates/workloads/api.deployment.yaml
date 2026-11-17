@@ -46,7 +46,7 @@ spec:
       containers:
       - name: {{ .Release.Name }}-api
         imagePullPolicy: {{ .Values.api.pullPolicy | default "Always" }}
-        image: {{ .Values.api.image | default "artifacts.plane.so/makeplane/plane-backend" }}:{{ .Values.planeVersion }}
+        image: {{ .Values.api.image | default "artifacts.plane.so/makeplane/plane-backend" }}:{{ .Values.planeVersion }}{{ with (index .Values.digests "api") }}@{{ . }}{{ end }}
         stdin: true
         tty: true
         resources:

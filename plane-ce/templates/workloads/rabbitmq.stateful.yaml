@@ -41,7 +41,7 @@ spec:
         app.name: {{ .Release.Namespace }}-{{ .Release.Name }}-rabbitmq
     spec:
       containers:
-      - image: {{ .Values.rabbitmq.image }}
+      - image: {{ .Values.rabbitmq.image }}{{ with .Values.rabbitmq.digest }}@{{ . }}{{ end }}
         imagePullPolicy: {{ .Values.rabbitmq.pullPolicy | default "IfNotPresent" | quote }}
         name: {{ .Release.Name }}-rabbitmq
         stdin: true

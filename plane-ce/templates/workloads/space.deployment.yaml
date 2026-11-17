@@ -42,7 +42,7 @@ spec:
       containers:
       - name: {{ .Release.Name }}-space
         imagePullPolicy: {{ .Values.space.pullPolicy | default "Always" }}
-        image: {{ .Values.space.image | default "artifacts.plane.so/makeplane/plane-space" }}:{{ .Values.planeVersion }}
+        image: {{ .Values.space.image | default "artifacts.plane.so/makeplane/plane-space" }}:{{ .Values.planeVersion }}{{ with (index .Values.digests "space") }}@{{ . }}{{ end }}
         stdin: true
         tty: true
         resources:

@@ -1,4 +1,12 @@
 planeVersion: v1.2.0
+digests:
+  admin: sha256:fd73152c9cbb5d1134945372d72ce097655ed45f4ebef1d3f040f19d2f121c8d
+  api: sha256:525a30e93776d7fba81c2046e984491ee521ad871ff51657d8f098feafd45c45
+  worker: sha256:525a30e93776d7fba81c2046e984491ee521ad871ff51657d8f098feafd45c45
+  beatworker: sha256:525a30e93776d7fba81c2046e984491ee521ad871ff51657d8f098feafd45c45
+  web: sha256:bc13ec3f6599c408293a3b232dcb1dd94d48446986c896100af43cf639b495f0
+  live: sha256:54e6c4504313be2d7ecf2abada482d37615173842c6f1324d85fca3bbd0e08b6
+  space: sha256:7c78106b45e356be84b037d29ed44d9098bc6b390fd5a8d315be73674f935664
 
 dockerRegistry:
   enabled: false
@@ -54,6 +62,7 @@ postgres:
   affinity: {}
 
 rabbitmq:
+  digest: sha256:611107e29cce05c2acd968325d5dcbde7e2fee404970f1ead75fdb22be2821b3
   local_setup: true
   image: rabbitmq:3.13.6-management-alpine
   pullPolicy: IfNotPresent
