@@ -1,7 +1,7 @@
 # Default image used by all components
 image:
   repository: twentycrm/twenty
-  tag: ""  # defaults to Chart.yaml appVersion
+  tag: "v2.9.1@sha256:cb30929d8f25ed78ef2cf11875ad1684f6bd3c3d187526cd881f1f757dd881c1"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
