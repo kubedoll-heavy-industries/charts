@@ -54,6 +54,26 @@ spec:
         - mountPath: /var/lib/rabbitmq
           name: pvc-{{ .Release.Name }}-rabbitmq-vol
           subPath: ''
+        resources:
+          requests:
+            memory: {{ .Values.rabbitmq.memoryRequest | default "256Mi" | quote }}
+            cpu: {{ .Values.rabbitmq.cpuRequest | default "100m" | quote }}
+          limits:
+            memory: {{ .Values.rabbitmq.memoryLimit | default "1Gi" | quote }}
+            cpu: {{ .Values.rabbitmq.cpuLimit | default "500m" | quote }}
+        readinessProbe:
+          exec:
+            command: ["rabbitmq-diagnostics", "-q", "ping"]
+          periodSeconds: 20
+          timeoutSeconds: 10
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command: ["rabbitmq-diagnostics", "-q", "ping"]
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 5
       {{- include "plane.podScheduling" .Values.rabbitmq }}
       serviceAccount: {{ .Release.Name }}-srv-account
       serviceAccountName: {{ .Release.Name }}-srv-account

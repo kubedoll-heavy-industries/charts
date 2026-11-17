@@ -54,6 +54,19 @@ spec:
       volumes:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+        readinessProbe:
+          exec:
+            command: ["/bin/sh", "-c", "pgrep -f celery >/dev/null"]
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command: ["/bin/sh", "-c", "pgrep -f celery >/dev/null"]
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
       {{- include "plane.podScheduling" .Values.worker }}
       serviceAccount: {{ .Release.Name }}-srv-account
       serviceAccountName: {{ .Release.Name }}-srv-account

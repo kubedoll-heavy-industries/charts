@@ -95,6 +95,19 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "-c", "pgrep -f 'worker:prod' >/dev/null"]
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command: ["/bin/sh", "-c", "pgrep -f 'worker:prod' >/dev/null"]
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
           stdin: {{ default true .Values.worker.stdin }}
           tty: {{ default true .Values.worker.tty }}
 {{- end }}
