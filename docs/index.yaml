@@ -3,7 +3,7 @@ entries:
   huly:
   - apiVersion: v2
     appVersion: v0.7.242
-    created: "2026-11-16T22:22:41.334211-04:00"
+    created: "2026-11-16T22:40:13.72115-04:00"
     description: Helm chart for Huly, an open-source project management platform
     digest: 1885facaed28f25114f1bb3fe7640c831d4a38d381ca360a6ea39e72ec8c785d
     home: https://huly.io
@@ -34,7 +34,7 @@ entries:
       trueforge.org/train: stable
     apiVersion: v2
     appVersion: 10.11.8
-    created: "2026-11-16T22:22:41.339871-04:00"
+    created: "2026-11-16T22:40:13.726466-04:00"
     dependencies:
     - name: common
       repository: oci://oci.trueforge.org/truecharts
@@ -74,7 +74,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: 26.6.1
-    created: "2026-11-16T22:22:41.346089-04:00"
+    created: "2026-11-16T22:40:13.732482-04:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -147,7 +147,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-11-16T22:22:41.356138-04:00"
+    created: "2026-11-16T22:40:13.742638-04:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: ea5a200f4ac81b23bd5795a8982a21d8dd5f64d09e9e2931fc19ba2b9963885f
@@ -216,7 +216,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-11-16T22:22:41.354243-04:00"
+    created: "2026-11-16T22:40:13.740767-04:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: 311350ae90e4ac7da63a5fe1fd73769294fb6b3b18f2201448f3f46619c1747a
@@ -285,7 +285,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-11-16T22:22:41.352078-04:00"
+    created: "2026-11-16T22:40:13.73893-04:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: 15f1ed971ce7f313d4419c5cfbbb094b32fe5642cef4a66158575d01263fea4d
@@ -354,7 +354,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-11-16T22:22:41.350199-04:00"
+    created: "2026-11-16T22:40:13.736257-04:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: 5e76e7a85e0bb8d2c54e9f3eb7b19b445167bcf9a52b94c8a498bc090e7744a6
@@ -423,7 +423,7 @@ entries:
         url: https://raw.githubusercontent.com/IQNeoXen/outline-helm-chart/main/pgp_keys.asc
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-11-16T22:22:41.34814-04:00"
+    created: "2026-11-16T22:40:13.734346-04:00"
     description: A Helm chart for the fastest knowledge base for growing teams. Beautiful,
       realtime collaborative, feature packed, and markdown compatible.
     digest: f714433fe6ae060e4839a3ce7f9820c32b7770453611b5b666454f77342a7f40
@@ -472,7 +472,67 @@ entries:
         url: https://helm.penpot.app/pubkey.asc
     apiVersion: v2
     appVersion: 2.14.1
-    created: "2026-11-16T22:22:41.397419-04:00"
+    created: "2026-11-16T22:40:13.798118-04:00"
+    dependencies:
+    - condition: global.postgresqlEnabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.5.38
+    - condition: global.valkeyEnabled
+      name: valkey
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 3.0.31
+    - condition: global.redisEnabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 19.6.4
+    description: Helm chart for Penpot, the Open Source design and prototyping platform.
+    digest: 0edc1b44571af6dfd83ffe026f980618d1ae95489faa2c6c56cb041c3818a31c
+    home: https://penpot.app
+    icon: https://avatars.githubusercontent.com/u/30179644?s=200&v=4
+    keywords:
+    - kubernetes
+    - penpot
+    - penpotapp
+    - design
+    - designsystem
+    - opensource
+    - ux
+    - ui
+    maintainers:
+    - name: Kaleidos INC
+      url: https://kaleidos.net
+    name: penpot
+    sources:
+    - https://github.com/penpot/penpot/tree/main
+    - https://github.com/penpot/penpot-helm/tree/main
+    - https://github.com/Kubedoll-Heavy-Industries/charts
+    type: application
+    urls:
+    - https://kubedoll-heavy-industries.github.io/charts/penpot-0.38.4.tgz
+    version: 0.38.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: bump Penpot to 2.14.1
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/penpot/penpot-helm/issues
+        - name: community
+          url: https://community.penpot.app
+        - name: documentation
+          url: https://help.penpot.app
+        - name: tutorials
+          url: https://www.youtube.com/playlist?list=PLgcCPfOv5v54WpXhHmNO7T-YC7AE-SRsr
+        - name: dev-diaries
+          url: https://penpot.app/dev-diaries.html
+      artifacthub.io/signKey: |
+        fingerprint: F0B526DC641A6DCBD94A2B2BA11A82757E9E6942
+        url: https://helm.penpot.app/pubkey.asc
+    apiVersion: v2
+    appVersion: 2.14.1
+    created: "2026-11-16T22:40:13.786047-04:00"
     dependencies:
     - condition: global.postgresqlEnabled
       name: postgresql
@@ -532,7 +592,7 @@ entries:
         url: https://helm.penpot.app/pubkey.asc
     apiVersion: v2
     appVersion: 2.14.1
-    created: "2026-11-16T22:22:41.387053-04:00"
+    created: "2026-11-16T22:40:13.774722-04:00"
     dependencies:
     - condition: global.postgresqlEnabled
       name: postgresql
@@ -592,7 +652,7 @@ entries:
         url: https://helm.penpot.app/pubkey.asc
     apiVersion: v2
     appVersion: 2.14.1
-    created: "2026-11-16T22:22:41.375773-04:00"
+    created: "2026-11-16T22:40:13.763159-04:00"
     dependencies:
     - condition: global.postgresqlEnabled
       name: postgresql
@@ -636,7 +696,25 @@ entries:
       artifacthub.io/license: AGPL-3.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-11-16T22:22:41.400423-04:00"
+    created: "2026-11-16T22:40:13.80221-04:00"
+    description: Meet Plane. An open-source software development tool to manage issues,
+      sprints, and product roadmaps with peace of mind.
+    digest: f10420afbb972dd41a5923424c4b6eb22f5f3f991abeebed3d1f78e6fed07406
+    home: https://plane.so
+    icon: https://plane.so/favicon/favicon-32x32.png
+    name: plane-ce
+    sources:
+    - https://github.com/makeplane/plane
+    - https://github.com/Kubedoll-Heavy-Industries/charts
+    type: application
+    urls:
+    - https://kubedoll-heavy-industries.github.io/charts/plane-ce-1.4.5.tgz
+    version: 1.4.5
+  - annotations:
+      artifacthub.io/license: AGPL-3.0
+    apiVersion: v2
+    appVersion: 1.2.0
+    created: "2026-11-16T22:40:13.80153-04:00"
     description: Meet Plane. An open-source software development tool to manage issues,
       sprints, and product roadmaps with peace of mind.
     digest: dc909bad1199bd4d82a9687074ad406bbd429dcc6656d41c7eb55771b17a3433
@@ -654,7 +732,7 @@ entries:
       artifacthub.io/license: AGPL-3.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-11-16T22:22:41.399741-04:00"
+    created: "2026-11-16T22:40:13.80053-04:00"
     description: Meet Plane. An open-source software development tool to manage issues,
       sprints, and product roadmaps with peace of mind.
     digest: 45cc8aa5d52f90debc725b3a949edf029aabe4ba849657b0ab3904575848b9b6
@@ -672,7 +750,7 @@ entries:
       artifacthub.io/license: AGPL-3.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-11-16T22:22:41.398551-04:00"
+    created: "2026-11-16T22:40:13.799294-04:00"
     description: Meet Plane. An open-source software development tool to manage issues,
       sprints, and product roadmaps with peace of mind.
     digest: 3bfe3c9e5543bea35c85d27684ca7c5b60928afebc74ef21bea1c2c546b4e10c
@@ -689,7 +767,7 @@ entries:
   terraria-tshock:
   - apiVersion: v2
     appVersion: 6.1.0
-    created: "2026-11-16T22:22:41.401343-04:00"
+    created: "2026-11-16T22:40:13.803217-04:00"
     description: 'Minimal opinionated Helm chart for TShock (Terraria server mod)
       on Kubernetes. Pairs with the hardened image at ghcr.io/kubedoll-heavy-industries/terraria-tshock.
       Replaces the truecharts terraria-tshock chart with a single-purpose chart that
@@ -716,7 +794,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 6.1.0
-    created: "2026-11-16T22:22:41.400842-04:00"
+    created: "2026-11-16T22:40:13.80265-04:00"
     description: 'Minimal opinionated Helm chart for TShock (Terraria server mod)
       on Kubernetes. Pairs with the hardened image at ghcr.io/kubedoll-heavy-industries/terraria-tshock.
       Replaces the truecharts terraria-tshock chart with a single-purpose chart that
@@ -744,7 +822,7 @@ entries:
   twenty:
   - apiVersion: v2
     appVersion: v2.9.1
-    created: "2026-11-16T22:22:41.403625-04:00"
+    created: "2026-11-16T22:40:13.805561-04:00"
     description: A Helm chart to deploy Twenty CRM (server + worker) with optional
       PostgreSQL and Redis dependencies.
     digest: 860ab3e09ac3cfcdfe6f62b3782b86bf7ba08db6c8ad4bf2bb92fc683c3080b0
@@ -756,7 +834,7 @@ entries:
     version: 2.9.2
   - apiVersion: v2
     appVersion: v2.9.1
-    created: "2026-11-16T22:22:41.402958-04:00"
+    created: "2026-11-16T22:40:13.804886-04:00"
     description: A Helm chart to deploy Twenty CRM (server + worker) with optional
       PostgreSQL and Redis dependencies.
     digest: 4022bd2b108953dcde9b0b33a8d75d873cf229a2cde129b3690ee27a624869ac
@@ -768,7 +846,7 @@ entries:
     version: 2.9.1
   - apiVersion: v2
     appVersion: v2.9.0
-    created: "2026-11-16T22:22:41.402107-04:00"
+    created: "2026-11-16T22:40:13.804052-04:00"
     description: A Helm chart to deploy Twenty CRM (server + worker) with optional
       PostgreSQL and Redis dependencies.
     digest: 0aef2af4658912007fa444954c46d438c6aea3373f691ea021f70e42173c34ee
@@ -778,4 +856,4 @@ entries:
     urls:
     - https://kubedoll-heavy-industries.github.io/charts/twenty-2.9.0.tgz
     version: 2.9.0
-generated: "2026-11-16T22:22:41.333406-04:00"
+generated: "2026-11-16T22:40:13.719963-04:00"

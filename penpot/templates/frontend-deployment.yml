@@ -10,10 +10,6 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  # The pod mounts a ReadWriteOnce volume, so a rolling update deadlocks:
-  # the new pod cannot attach while the old one still holds the claim.
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       {{- include "penpot.frontendSelectorLabels" . | nindent 6 }}
@@ -91,23 +87,6 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 6
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 30
-            periodSeconds: 20
-            timeoutSeconds: 2
-            failureThreshold: 3
       {{- with .Values.frontend.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

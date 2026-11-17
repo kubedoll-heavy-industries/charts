@@ -53,4 +53,4 @@ sources:
 - https://github.com/penpot/penpot-helm/tree/main
 - https://github.com/Kubedoll-Heavy-Industries/charts
 type: application
-version: 0.38.3
+version: 0.38.4
