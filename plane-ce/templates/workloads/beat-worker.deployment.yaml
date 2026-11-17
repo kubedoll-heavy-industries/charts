@@ -46,14 +46,6 @@ spec:
           - secretRef:
               name: {{ if not (empty .Values.external_secrets.doc_store_existingSecret) }}{{ .Values.external_secrets.doc_store_existingSecret }}{{ else }}{{ .Release.Name }}-doc-store-secrets{{ end }}
               optional: false
-        {{- with .Values.beatworker.extraVolumeMounts }}
-        volumeMounts:
-          {{- toYaml . | nindent 10 }}
-        {{- end }}
-      {{- with .Values.beatworker.extraVolumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
         readinessProbe:
           exec:
             command: ["/bin/sh", "-c", "pgrep -f celery >/dev/null"]
@@ -67,6 +59,14 @@ spec:
           periodSeconds: 30
           timeoutSeconds: 5
           failureThreshold: 3
+        {{- with .Values.beatworker.extraVolumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      {{- with .Values.beatworker.extraVolumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- include "plane.podScheduling" .Values.beatworker }}
       serviceAccount: {{ .Release.Name }}-srv-account
       serviceAccountName: {{ .Release.Name }}-srv-account

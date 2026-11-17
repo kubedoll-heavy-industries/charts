@@ -10,6 +10,10 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  # The pod mounts a ReadWriteOnce volume, so a rolling update deadlocks:
+  # the new pod cannot attach while the old one still holds the claim.
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "penpot.frontendSelectorLabels" . | nindent 6 }}

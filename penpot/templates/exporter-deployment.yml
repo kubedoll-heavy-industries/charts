@@ -10,6 +10,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  # Reads a ReadWriteOnce volume; rolling updates cannot dual-attach it.
+  strategy:
+    type: Recreate
   {{- if not .Values.exporter.autoscaling.hpa.enabled }}
   replicas: {{ .Values.exporter.replicaCount }}
   {{- end }}
